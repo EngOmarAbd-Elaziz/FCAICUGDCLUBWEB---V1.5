@@ -66,6 +66,27 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Overview */}
+      <section className="overview">
+        <div className="container">
+          <h2>Our Impact</h2>
+          <div className="stats">
+            <div className="stat">
+              <h3 id="students-count">{stats?.students_count || 0}</h3>
+              <p>Students Trained</p>
+            </div>
+            <div className="stat">
+              <h3 id="graduates-count">{stats?.graduates_count || 0}</h3>
+              <p>Active Graduates</p>
+            </div>
+            <div className="stat">
+              <h3 id="projects-count">{stats?.projects_count || 0}</h3>
+              <p>Community Projects</p>
+            </div>
+          </div>
+          <Link href="/projects" className="btn-primary">Explore Projects</Link>
+        </div>
+      </section>
 
       {/* Founders Section */}
       <section className="team" id="team">
@@ -130,28 +151,6 @@ export default async function HomePage() {
               )}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Overview */}
-      <section className="overview">
-        <div className="container">
-          <h2>Our Impact</h2>
-          <div className="stats">
-            <div className="stat">
-              <h3 id="students-count">{stats?.students_count || 0}</h3>
-              <p>Students Trained</p>
-            </div>
-            <div className="stat">
-              <h3 id="graduates-count">{stats?.graduates_count || 0}</h3>
-              <p>Active Graduates</p>
-            </div>
-            <div className="stat">
-              <h3 id="projects-count">{stats?.projects_count || 0}</h3>
-              <p>Community Projects</p>
-            </div>
-          </div>
-          <Link href="/projects" className="btn-primary">Explore Projects</Link>
         </div>
       </section>
 

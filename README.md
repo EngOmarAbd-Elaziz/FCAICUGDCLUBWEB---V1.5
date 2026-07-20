@@ -1,5 +1,7 @@
 # 🎓 FCAI-CU Google Developer Groups (GDG) Website 🌐
 
+🔗 **Live Website:** [fcai-cugdcweb.vercel.app](https://fcai-cugdcweb.vercel.app/)
+
 Welcome to the official repository for the **FCAI-CU GDG** (Google Developer Groups at the Faculty of Computers and Artificial Intelligence, Cairo University) website. This platform serves as a central hub for our community, showcasing our events, projects, core team members, and providing a way to connect with us!
 
 ## 📸 Screenshots

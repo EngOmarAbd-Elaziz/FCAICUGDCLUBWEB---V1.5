@@ -524,7 +524,7 @@ section h2 {
     align-items: center;
     gap: 1.25rem;
     padding-bottom: 10px;
-    animation: marquee 24s linear infinite;
+    animation: marquee 12s linear infinite;
     will-change: transform;
 }
 

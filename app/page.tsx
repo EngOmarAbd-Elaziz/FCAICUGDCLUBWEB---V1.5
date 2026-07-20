@@ -52,6 +52,21 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Mission & Vision */}
+      <section className="mission-vision" id="about">
+        <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: '5rem', paddingTop: '5rem', paddingBottom: '2rem' }}>
+          <div className="mission">
+            <h2>Our Mission</h2>
+            <p>To foster a vibrant community of game developers, providing resources, mentorship, and opportunities for growth in the gaming industry.</p>
+          </div>
+          <div className="vision">
+            <h2>Our Vision</h2>
+            <p>To be the leading game development community in Egypt, producing innovative games and skilled developers that shape the future of gaming.</p>
+          </div>
+        </div>
+      </section>
+
+
       {/* Founders Section */}
       <section className="team" id="team">
         <div className="container">
@@ -78,20 +93,6 @@ export default async function HomePage() {
           </div>
           <div style={{ textAlign: 'center', marginTop: '3rem' }}>
             <Link href="/team" className="btn-primary">View Full Team</Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Mission & Vision */}
-      <section className="mission-vision" id="about">
-        <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: '5rem', paddingTop: '5rem', paddingBottom: '2rem' }}>
-          <div className="mission">
-            <h2>Our Mission</h2>
-            <p>To foster a vibrant community of game developers, providing resources, mentorship, and opportunities for growth in the gaming industry.</p>
-          </div>
-          <div className="vision">
-            <h2>Our Vision</h2>
-            <p>To be the leading game development community in Egypt, producing innovative games and skilled developers that shape the future of gaming.</p>
           </div>
         </div>
       </section>

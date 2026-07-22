@@ -169,7 +169,8 @@ body.admin-page .navbar {
 
 .admin-main {
     flex: 1;
-    min-width: 0;        /* prevent flex overflow */
+    min-width: 0;
+    /* prevent flex overflow */
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
@@ -497,6 +498,18 @@ body.admin-page .navbar {
     font-size: 0.95rem;
 }
 
+.signature {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.signature:hover {
+    transform: translateY(5deg), scale(1.1);
+    color: var(--primary-color);
+    text-shadow: 0px 0px 30px var(--accent-color);
+}
+
 /* ========================
    ADMIN — TABLET (768px–1024px)
 ======================== */
@@ -696,12 +709,12 @@ body.admin-page .navbar {
         left: 0;
     }
 
-    .admin-sidebar.open ~ .admin-sidebar-overlay,
+    .admin-sidebar.open~.admin-sidebar-overlay,
     .admin-sidebar-overlay {
         display: block;
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.5);
+        background: rgba(0, 0, 0, 0.5);
         z-index: 250;
     }
 

@@ -185,12 +185,10 @@ export default function AdminPage() {
             right: '20px',
             fontSize: '0.72rem',
             color: 'rgba(255,255,255,0.2)',
-            pointerEvents: 'none',
             letterSpacing: '0.04em',
-            userSelect: 'none',
             fontFamily: 'monospace',
           }}>
-            Developed by <a href='https://engomarabd-elaziz.github.io/My-Portofolio/' target="_blank" rel="noopener noreferrer" className='signature'>Eng.Omar Abdelaziz</a>
+            Developed by <a href='https://engomarabd-elaziz.github.io/My-Portofolio/' target="_blank" rel="noopener noreferrer" id='signature'>Eng.Omar Abdelaziz</a>
           </div>
         </main>
       </div>

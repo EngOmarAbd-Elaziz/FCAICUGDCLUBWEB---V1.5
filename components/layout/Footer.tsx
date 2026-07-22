@@ -8,7 +8,7 @@ export default function Footer() {
           <p className="footer-copy">&copy; {new Date().getFullYear()} FCAI CUGD Club. All rights reserved.</p>
           <div className="footer-signature">
             <span>Made By</span>
-            <strong>Eng. Omar Abdelaziz</strong>
+            <strong><a href="https://engomarabd-elaziz.github.io/My-Portofolio/" target="_blank" rel="noopener noreferrer">Eng. Omar Abdelaziz</a></strong>
           </div>
         </div>
       </div>

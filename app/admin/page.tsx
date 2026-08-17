@@ -15,7 +15,7 @@ import { EventsSection } from '@/components/admin/EventsSection';
 import { CoursesSection } from '@/components/admin/CoursesSection';
 import { WavesSection } from '@/components/admin/WavesSection';
 import { YouTubeSection } from '@/components/admin/YouTubeSection';
-import { PartnersSection } from '@/components/admin/PartnersSection';
+
 
 export default function AdminPage() {
   const [activeSection, setActiveSection] = useState('statistics');
@@ -87,7 +87,7 @@ export default function AdminPage() {
       case 'courses': return <CoursesSection />;
       case 'waves': return <WavesSection />;
       case 'youtube': return <YouTubeSection />;
-      case 'partners': return <PartnersSection />;
+
       default: return <StatisticsSection />;
     }
   };
@@ -109,9 +109,7 @@ export default function AdminPage() {
     { group: 'Media & Content', items: [
       { key: 'youtube', icon: 'fab fa-youtube', label: 'YouTube Videos' },
     ]},
-    { group: 'External', items: [
-      { key: 'partners', icon: 'fas fa-handshake', label: 'Partners' },
-    ]},
+
   ];
 
   return (

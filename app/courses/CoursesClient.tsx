@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-export default function ServicesClient({ courses }: any) {
+export default function CoursesClient({ courses }: any) {
   const [docModal, setDocModal] = useState<{ title: string; url: string } | null>(null);
 
   /** Convert any Google Drive/Docs share link to an embeddable /preview URL */

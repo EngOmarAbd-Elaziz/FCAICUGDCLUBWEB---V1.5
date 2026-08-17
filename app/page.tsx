@@ -81,7 +81,7 @@ export default async function HomePage() {
           </div>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/waves" className="btn-primary">Explore Waves</Link>
-            <Link href="/services" className="btn-primary">Explore Our Courses</Link>
+            <Link href="/courses" className="btn-primary">Explore Our Courses</Link>
           </div>
         </div>
       </section>

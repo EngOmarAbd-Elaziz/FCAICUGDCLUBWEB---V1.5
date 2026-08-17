@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
-import ServicesClient from './ServicesClient';
+import CoursesClient from './CoursesClient';
 
-export default async function ServicesPage() {
+export default async function CoursesPage() {
   const supabase = await createClient();
 
   // Fetch Courses
@@ -9,7 +9,7 @@ export default async function ServicesPage() {
 
   return (
     <div style={{ paddingTop: '100px' }}>
-      <ServicesClient courses={courses || []} />
+      <CoursesClient courses={courses || []} />
     </div>
   );
 }

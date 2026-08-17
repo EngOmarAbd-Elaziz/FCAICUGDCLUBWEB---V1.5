@@ -8,7 +8,6 @@ import Image from 'next/image';
 
 // Section Imports
 import { StatisticsSection } from '@/components/admin/StatisticsSection';
-import { SiteSettingsSection } from '@/components/admin/SiteSettingsSection';
 import { FoundersSection } from '@/components/admin/FoundersSection';
 import { SeasonsSection } from '@/components/admin/SeasonsSection';
 import { TeamSection } from '@/components/admin/TeamSection';
@@ -81,7 +80,6 @@ export default function AdminPage() {
   const renderSection = () => {
     switch (activeSection) {
       case 'statistics': return <StatisticsSection />;
-      case 'site-settings': return <SiteSettingsSection />;
       case 'founders': return <FoundersSection />;
       case 'team-seasons': return <SeasonsSection />;
       case 'team': return <TeamSection />;
@@ -97,7 +95,6 @@ export default function AdminPage() {
   const sidebarLinks = [
     { group: 'Core', items: [
       { key: 'statistics', icon: 'fas fa-chart-bar', label: 'Statistics' },
-      { key: 'site-settings', icon: 'fas fa-cog', label: 'Site Settings' },
     ]},
     { group: 'People', items: [
       { key: 'founders', icon: 'fas fa-user-tie', label: 'Founders' },

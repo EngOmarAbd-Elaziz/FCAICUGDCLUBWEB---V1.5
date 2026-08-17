@@ -26,11 +26,6 @@ export default async function HomePage() {
     .limit(1)
     .single();
 
-  const { data: partners } = await supabase
-    .from('partners')
-    .select('*')
-    .order('display_order', { ascending: true });
-
   return (
     <>
       {/* Hero Section */}
@@ -84,7 +79,10 @@ export default async function HomePage() {
               <p>Community Projects</p>
             </div>
           </div>
-          <Link href="/projects" className="btn-primary">Explore Projects</Link>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/waves" className="btn-primary">Explore Waves</Link>
+            <Link href="/services" className="btn-primary">Explore Our Courses</Link>
+          </div>
         </div>
       </section>
 
@@ -151,32 +149,57 @@ export default async function HomePage() {
               )}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Partners Section */}
-      <section className="partners-section" style={{ padding: '60px 0' }}>
-        <div className="container">
-          <h2 style={{ textAlign: 'center', marginBottom: '2rem', color: 'var(--primary-color)' }}>Our Partners</h2>
-          <div className="partners-grid" style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', justifyContent: 'center' }}>
-            {partners && partners.length > 0 ? (
-              partners.map((partner: any) => (
-                <div key={partner.id} style={{ background: 'var(--card-bg)', padding: '1rem', borderRadius: '10px' }}>
-                  {partner.website_url ? (
-                    <a href={partner.website_url} target="_blank" rel="noreferrer">
-                      <Image src={partner.logo_url} alt={partner.name} width={150} height={150} style={{ objectFit: 'contain' }} />
-                    </a>
-                  ) : (
-                    <Image src={partner.logo_url} alt={partner.name} width={150} height={150} style={{ objectFit: 'contain' }} />
-                  )}
-                </div>
-              ))
-            ) : (
-              <p>Partners will appear here.</p>
-            )}
+          <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+            <a href="https://www.youtube.com/@FCAICairoGDClub" target="_blank" rel="noreferrer" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
+              <i className="fab fa-youtube" style={{ fontSize: '1.2rem' }}></i>
+              Visit Our YouTube Channel
+            </a>
           </div>
         </div>
       </section>
+
+      {/* Our Events Section (New) */}
+      <section className="events-invitation" style={{ padding: '120px 20px', position: 'relative', overflow: 'hidden', background: 'transparent' }}>
+        <style dangerouslySetInnerHTML={{ __html: `
+          @keyframes float-icon {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+          }
+          .invitation-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(255, 83, 3, 0.4) !important;
+          }
+        `}} />
+        <div className="container" style={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+          
+          <div className="invitation-badge" style={{ display: 'inline-block', padding: '0.5rem 1.2rem', background: 'rgba(255, 83, 3, 0.1)', color: 'var(--primary-color)', borderRadius: '999px', fontSize: '0.9rem', fontWeight: 800, letterSpacing: '0.15em', marginBottom: '1.5rem', border: '1px solid rgba(255, 83, 3, 0.3)' }}>
+            YOU IN?
+          </div>
+          
+          <h2 dir="rtl" style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 900, marginBottom: '1.5rem', lineHeight: 1.2, fontFamily: '"Aref Ruqaa Ink", serif', color: 'var(--text-color)', filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.1))' }}>
+            مستني إيه؟ تعالى شاركنا! 👀
+          </h2>
+          
+          <p dir="rtl" style={{ maxWidth: '750px', fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)', color: 'rgba(255, 255, 255, 0.85)', marginBottom: '3.5rem', lineHeight: 1.8, fontWeight: 500 }}>
+            من أول الـ workshops والـ talks لحد الـ game jams والفعاليات اللي بنعملها سوا… دايمًا فيه حاجة جديدة بتحصل. تعالى شوف إيه اللي جاي وخلّي مكانك وسطنا!
+          </p>
+          
+          <Link href="/events" className="btn-primary invitation-btn" style={{ fontSize: '1.2rem', padding: '1.2rem 3rem', borderRadius: '50px', display: 'inline-flex', alignItems: 'center', gap: '12px', boxShadow: '0 10px 30px rgba(255, 83, 3, 0.25)', transition: 'all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)' }}>
+            Explore Our Events <i className="fas fa-arrow-right"></i>
+          </Link>
+          
+        </div>
+
+        {/* Decorative Floating Elements */}
+        <div style={{ position: 'absolute', top: '15%', left: '15%', fontSize: '4rem', opacity: 0.15, pointerEvents: 'none', animation: 'float-icon 7s ease-in-out infinite' }}>🎮</div>
+        <div style={{ position: 'absolute', bottom: '20%', right: '15%', fontSize: '5rem', opacity: 0.1, pointerEvents: 'none', animation: 'float-icon 9s ease-in-out infinite reverse' }}>✨</div>
+        <div style={{ position: 'absolute', top: '60%', left: '10%', fontSize: '3rem', opacity: 0.15, pointerEvents: 'none', animation: 'float-icon 8s ease-in-out infinite 2s' }}>🚀</div>
+        <div style={{ position: 'absolute', top: '25%', right: '20%', fontSize: '3rem', opacity: 0.1, pointerEvents: 'none', animation: 'float-icon 10s ease-in-out infinite 1s' }}>🎲</div>
+        
+        {/* Glow effect */}
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(255,83,3,0.06) 0%, rgba(255,83,3,0) 60%)', pointerEvents: 'none', zIndex: 1 }}></div>
+      </section>
+
       {/* Contact Section */}
       <section className="contact-section" id="contact">
         <div className="container">
@@ -199,11 +222,11 @@ export default async function HomePage() {
               
               <div className="contact-card">
                 <div className="icon-wrapper">
-                  <i className="fas fa-phone-alt"></i>
+                  <i className="fab fa-discord"></i>
                 </div>
                 <div>
-                  <h3>Call Us</h3>
-                  <a href="tel:+201020468877">+20 102 046 8877</a>
+                  <h3>Join Us</h3>
+                  <a href="#" target="_blank" rel="noreferrer">Community Discord</a>
                 </div>
               </div>
 

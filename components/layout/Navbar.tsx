@@ -116,7 +116,9 @@ export default function Navbar() {
           <div className={`nav-links ${mobileMenuOpen ? 'active' : ''}`}>
             <Link href="/" onClick={() => setMobileMenuOpen(false)}>Home</Link>
             <Link href="/team" onClick={() => setMobileMenuOpen(false)}>Team</Link>
-            <Link href="/projects" onClick={() => setMobileMenuOpen(false)}>Projects</Link>
+            <Link href="/services" onClick={() => setMobileMenuOpen(false)}>Services</Link>
+            <Link href="/events" onClick={() => setMobileMenuOpen(false)}>Events</Link>
+            <Link href="/waves" onClick={() => setMobileMenuOpen(false)}>Waves</Link>
             <Link href="/#contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
             
             {isAdmin && (

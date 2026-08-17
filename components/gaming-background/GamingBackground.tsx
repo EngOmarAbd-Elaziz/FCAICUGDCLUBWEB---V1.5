@@ -18,11 +18,22 @@ export default function GamingBackground() {
     let particles: Particle[] = [];
     const numParticles = Math.min(60, Math.floor((width * height) / 20000));
     
-    // Interactive mouse positioning
-    const mouse = { x: -1000, y: -1000 }; 
+    let autoMouse = true;
+    let time = 0;
+    const mouse = { x: width / 2, y: height / 2 }; 
+    
     const handleMouseMove = (e: MouseEvent) => {
+      autoMouse = false;
       mouse.x = e.clientX;
       mouse.y = e.clientY;
+    };
+    
+    const handleTouchMove = (e: TouchEvent) => {
+      autoMouse = false;
+      if (e.touches.length > 0) {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+      }
     };
     
     const handleResize = () => {
@@ -32,6 +43,7 @@ export default function GamingBackground() {
     };
 
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove);
     window.addEventListener('resize', handleResize);
 
     class Particle {
@@ -55,10 +67,6 @@ export default function GamingBackground() {
         this.x += this.speedX;
         this.y += this.speedY;
 
-        // Bounce off edges
-        if (this.x > width || this.x < 0) this.speedX *= -1;
-        if (this.y > height || this.y < 0) this.speedY *= -1;
-
         // Mouse interaction (parallax / push)
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
@@ -66,9 +74,17 @@ export default function GamingBackground() {
         
         if (distance < 150) {
           const force = (150 - distance) / 150;
-          this.x -= dx * force * 0.02;
-          this.y -= dy * force * 0.02;
+          // smooth repulsion
+          this.x -= dx * force * 0.03;
+          this.y -= dy * force * 0.03;
         }
+
+        // Bounce off edges (after interaction to prevent getting stuck out of bounds)
+        if (this.x > width) { this.x = width; this.speedX *= -1; }
+        else if (this.x < 0) { this.x = 0; this.speedX *= -1; }
+        
+        if (this.y > height) { this.y = height; this.speedY *= -1; }
+        else if (this.y < 0) { this.y = 0; this.speedY *= -1; }
       }
 
       draw() {
@@ -112,6 +128,13 @@ export default function GamingBackground() {
     
     function animate() {
       if (!ctx) return;
+      
+      if (autoMouse) {
+        time += 0.003;
+        mouse.x = width / 2 + Math.cos(time) * (width / 3);
+        mouse.y = height / 2 + Math.sin(time * 0.8) * (height / 3);
+      }
+
       // Soft trail effect
       ctx.fillStyle = 'rgba(10, 10, 10, 0.2)'; // Dark bg with low opacity for trails
       ctx.fillRect(0, 0, width, height);
@@ -140,6 +163,7 @@ export default function GamingBackground() {
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
     };

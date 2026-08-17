@@ -518,6 +518,11 @@ section h2 {
     .team-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+    .team-card .overlay {
+        opacity: 1;
+        transform: translateY(0);
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.4), transparent);
+    }
 }
 
 @media (max-width: 480px) {

@@ -32,7 +32,7 @@ export default async function HomePage() {
       <section className="hero">
         <div className="hero-container">
           <div className="hero-left">
-            <h1><span className="s-main">متخليش الدنيا</span> <br/><span className="s-sec">تبكسلك</span></h1>
+            <h1><span className="s-main" style={{ fontSize: 'clamp(3.5rem, 12vw, 8rem)' }}>متخليش الدنيا</span> <br/><span className="s-sec" style={{ fontSize: 'clamp(2.5rem, 9vw, 5.5rem)' }}>تبكسلك</span></h1>
             <p className="description">Join the premier game development community at FCAI. Learn, create, and innovate in the world of gaming.</p>
             <div className="animated-text">
               <span style={{ animationDelay: '0s' }}>Unity</span>
@@ -79,7 +79,7 @@ export default async function HomePage() {
               <p>Community Projects</p>
             </div>
           </div>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div className="impact-cta-container" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '2rem' }}>
             <Link href="/waves" className="btn-primary">Explore Waves</Link>
             <Link href="/courses" className="btn-primary">Explore Our Courses</Link>
           </div>
@@ -176,11 +176,11 @@ export default async function HomePage() {
             YOU IN?
           </div>
           
-          <h2 dir="rtl" style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 900, marginBottom: '1.5rem', lineHeight: 1.2, fontFamily: '"Aref Ruqaa Ink", serif', color: 'var(--text-color)', filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.1))' }}>
+          <h2 dir="rtl" style={{ fontSize: 'clamp(1.8rem, 8vw, 4.5rem)', fontWeight: 900, marginBottom: '1.5rem', lineHeight: 1.2, fontFamily: '"Aref Ruqaa Ink", serif', color: 'var(--text-color)', filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.1))' }}>
             مستني إيه؟ تعالى شاركنا! 👀
           </h2>
           
-          <p dir="rtl" style={{ maxWidth: '750px', fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)', color: 'rgba(255, 255, 255, 0.85)', marginBottom: '3.5rem', lineHeight: 1.8, fontWeight: 500 }}>
+          <p dir="rtl" style={{ maxWidth: '750px', fontSize: 'clamp(1rem, 4vw, 1.4rem)', color: 'rgba(255, 255, 255, 0.85)', marginBottom: '3.5rem', lineHeight: 1.8, fontWeight: 500 }}>
             من أول الـ workshops والـ talks لحد الـ game jams والفعاليات اللي بنعملها سوا… دايمًا فيه حاجة جديدة بتحصل. تعالى شوف إيه اللي جاي وخلّي مكانك وسطنا!
           </p>
           

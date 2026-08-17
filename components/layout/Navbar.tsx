@@ -9,6 +9,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showAdminModal, setShowAdminModal] = useState(false);
+  const [showMobileToast, setShowMobileToast] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,7 +19,6 @@ export default function Navbar() {
 
   // Check auth state on mount and across pages
   useEffect(() => {
-
     const checkAdminStatus = async () => {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
@@ -34,7 +34,22 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Double-click on logo triggers admin modal
+  // Scroll-lock: prevent body and html scroll when burger menu or admin modal is open
+  useEffect(() => {
+    if (mobileMenuOpen || showAdminModal) {
+      document.body.classList.add('no-scroll');
+      document.documentElement.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+      document.documentElement.classList.remove('no-scroll');
+    }
+    return () => {
+      document.body.classList.remove('no-scroll');
+      document.documentElement.classList.remove('no-scroll');
+    };
+  }, [mobileMenuOpen, showAdminModal]);
+
+  // Double-click on logo triggers admin modal (desktop only)
   const handleLogoDoubleClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     if (!isAdmin) {
@@ -42,7 +57,7 @@ export default function Navbar() {
     }
   }, [isAdmin]);
 
-  // Mobile double-tap support
+  // Mobile double-tap support — shows toast instead of modal on mobile
   const lastTapRef = React.useRef(0);
   const handleLogoTouchEnd = useCallback((e: React.TouchEvent) => {
     const currentTime = new Date().getTime();
@@ -50,7 +65,12 @@ export default function Navbar() {
     if (tapDelay < 300 && tapDelay > 0) {
       e.preventDefault();
       if (!isAdmin) {
-        setShowAdminModal(true);
+        if (window.innerWidth <= 768) {
+          setShowMobileToast(true);
+          setTimeout(() => setShowMobileToast(false), 4000);
+        } else {
+          setShowAdminModal(true);
+        }
       }
     }
     lastTapRef.current = currentTime;
@@ -87,6 +107,7 @@ export default function Navbar() {
     const supabase = createClient();
     await supabase.auth.signOut();
     setIsAdmin(false);
+    setMobileMenuOpen(false);
     router.refresh();
   }
 
@@ -95,6 +116,10 @@ export default function Navbar() {
     setLoginError('');
     setEmail('');
     setPassword('');
+  }
+
+  function closeMobileMenu() {
+    setMobileMenuOpen(false);
   }
 
   return (
@@ -113,45 +138,126 @@ export default function Navbar() {
             <span className="logo-text">Game Development Club</span>
           </Link>
           
-          <div className={`nav-links ${mobileMenuOpen ? 'active' : ''}`}>
-            <Link href="/" onClick={() => setMobileMenuOpen(false)}>Home</Link>
-            <Link href="/team" onClick={() => setMobileMenuOpen(false)}>Team</Link>
-            <Link href="/courses" onClick={() => setMobileMenuOpen(false)}>Courses</Link>
-            <Link href="/events" onClick={() => setMobileMenuOpen(false)}>Events</Link>
-            <Link href="/waves" onClick={() => setMobileMenuOpen(false)}>Waves</Link>
-            <Link href="/#contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+          {/* Desktop Progressive Navigation Bar */}
+          <div className="desktop-nav-links">
+            <Link href="/" className="desktop-nav-item nav-item-home">
+              Home
+            </Link>
+            <Link href="/team" className="desktop-nav-item nav-item-team">
+              Team
+            </Link>
+            <Link href="/courses" className="desktop-nav-item nav-item-courses">
+              Courses
+            </Link>
+            <Link href="/events" className="desktop-nav-item nav-item-events">
+              Events
+            </Link>
+            <Link href="/waves" className="desktop-nav-item nav-item-waves">
+              Waves
+            </Link>
+            <Link href="/#contact" className="desktop-nav-item nav-item-contact">
+              Contact
+            </Link>
             
             {isAdmin && (
               <>
-                <Link href="/admin" className="admin-link" title="Admin Dashboard" onClick={() => setMobileMenuOpen(false)} style={{ color: '#ff4500', fontSize: '16px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Link
+                  href="/admin"
+                  className="desktop-nav-item admin-link nav-item-admin"
+                  title="Admin Dashboard"
+                >
                   <i className="fas fa-crown"></i>
                 </Link>
-                <button className="logout-btn" title="Logout" onClick={handleLogout} style={{ background: 'none', border: 'none', color: 'var(--text-color)', cursor: 'pointer', fontSize: '16px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}>
+                <button
+                  className="desktop-nav-item logout-btn nav-item-logout"
+                  title="Sign Out"
+                  onClick={handleLogout}
+                >
                   <i className="fas fa-sign-out-alt"></i>
                 </button>
               </>
             )}
           </div>
           
+          {/* Hamburger button */}
           <button 
             id="hamburger" 
-            className="hamburger" 
+            className={`hamburger ${mobileMenuOpen ? 'active' : ''}`}
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileMenuOpen}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             <i className={`fas ${mobileMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
           </button>
         </div>
+
+        {/* Floating Glass Mobile / Tablet Menu Panel */}
+        <div className={`mobile-menu-panel ${mobileMenuOpen ? 'open' : ''}`}>
+          <Link href="/" onClick={closeMobileMenu} className="mobile-nav-link">
+            <i className="fas fa-home"></i>
+            <span>Home</span>
+          </Link>
+          <Link href="/team" onClick={closeMobileMenu} className="mobile-nav-link">
+            <i className="fas fa-users"></i>
+            <span>Team</span>
+          </Link>
+          <Link href="/courses" onClick={closeMobileMenu} className="mobile-nav-link">
+            <i className="fas fa-book-open"></i>
+            <span>Courses</span>
+          </Link>
+          <Link href="/events" onClick={closeMobileMenu} className="mobile-nav-link">
+            <i className="fas fa-calendar-check"></i>
+            <span>Events</span>
+          </Link>
+          <Link href="/waves" onClick={closeMobileMenu} className="mobile-nav-link">
+            <i className="fas fa-graduation-cap"></i>
+            <span>Waves</span>
+          </Link>
+          <Link href="/#contact" onClick={closeMobileMenu} className="mobile-nav-link">
+            <i className="fas fa-envelope"></i>
+            <span>Contact</span>
+          </Link>
+          
+          {isAdmin && (
+            <>
+              <Link
+                href="/admin"
+                className="mobile-nav-link admin-link"
+                onClick={closeMobileMenu}
+              >
+                <i className="fas fa-crown"></i>
+                <span>Admin Panel</span>
+              </Link>
+              <button
+                className="mobile-nav-link logout-btn"
+                onClick={handleLogout}
+              >
+                <i className="fas fa-sign-out-alt"></i>
+                <span>Sign Out</span>
+              </button>
+            </>
+          )}
+        </div>
       </nav>
 
-      {/* Admin Login Modal - triggered by double-click on logo */}
+      {/* Backdrop overlay — sit BEHIND navbar and mobile menu panel at z-index: 998 */}
+      {mobileMenuOpen && (
+        <div
+          className="mobile-backdrop"
+          onClick={closeMobileMenu}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Admin Login Modal (desktop only) */}
       {showAdminModal && (
         <div 
           className="modal show" 
           id="admin-login-modal" 
           onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}
-          style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10000 }}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10000 }}
         >
-          <div className="modal-content" style={{ maxWidth: '400px', background: 'var(--card-bg)', backdropFilter: 'blur(12px)', padding: '2.5rem', borderRadius: '18px', border: '1px solid var(--border-color)', textAlign: 'center', position: 'relative' }}>
+          <div className="modal-content" style={{ maxWidth: '400px', width: '90%', background: 'var(--card-bg)', backdropFilter: 'blur(12px)', padding: '2.5rem', borderRadius: '18px', border: '1px solid var(--border-color)', textAlign: 'center', position: 'relative' }}>
             <span onClick={closeModal} className="close" style={{ position: 'absolute', top: '15px', right: '20px', fontSize: '1.5rem', cursor: 'pointer', color: 'var(--text-color)' }}>&times;</span>
             
             <div style={{ fontSize: '3.5rem', color: 'var(--primary-color)', marginBottom: '1rem', filter: 'drop-shadow(0 0 10px rgba(255, 69, 0, 0.35))' }}>
@@ -198,6 +304,21 @@ export default function Navbar() {
           </div>
         </div>
       )}
+
+      {/* Mobile Admin Login Prevention Toast */}
+      <div className="toast-container" style={{ pointerEvents: 'none' }}>
+        <div
+          className={`toast toast-error ${showMobileToast ? 'toast-enter' : ''}`}
+          style={{ pointerEvents: showMobileToast ? 'auto' : 'none' }}
+        >
+          <div className="toast-icon">
+            <i className="fas fa-exclamation-circle"></i>
+          </div>
+          <div className="toast-message">
+            Admin Panel is available on desktop only.
+          </div>
+        </div>
+      </div>
     </>
   );
 }

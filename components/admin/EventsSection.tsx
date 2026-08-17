@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useAdminContext } from './AdminContext';
 import { AdminModal } from './AdminModal';
@@ -10,12 +10,14 @@ import { uploadFileToSupabase } from './uploadHelper';
 
 export function EventsSection() {
   const [items, setItems] = useState<any[]>([]);
+  const [seasons, setSeasons] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [currentItem, setCurrentItem] = useState<any>(null);
   
   const [title, setTitle] = useState('');
+  const [seasonId, setSeasonId] = useState('');
   const [description, setDescription] = useState('');
   const [richContent, setRichContent] = useState('');
   const [postUrl, setPostUrl] = useState('');
@@ -30,10 +32,14 @@ export function EventsSection() {
   const supabase = createClient();
   const { showToast, showConfirmModal } = useAdminContext();
 
-  const fetchItems = React.useCallback(async () => {
+  const fetchItems = useCallback(async () => {
     setIsLoading(true);
-    const { data } = await supabase.from('events').select('*').order('display_order', { ascending: true });
-    if (data) setItems(data);
+    const [eventsRes, seasonsRes] = await Promise.all([
+      supabase.from('events').select('*, seasons(name)').order('display_order', { ascending: true }),
+      supabase.from('seasons').select('*').order('display_order', { ascending: true }),
+    ]);
+    if (eventsRes.data) setItems(eventsRes.data);
+    if (seasonsRes.data) setSeasons(seasonsRes.data);
     setIsLoading(false);
   }, [supabase]);
 
@@ -42,6 +48,7 @@ export function EventsSection() {
   const openModal = (item: any = null) => {
     setCurrentItem(item);
     setTitle(item?.title || '');
+    setSeasonId(item?.season_id || '');
     setDescription(item?.description || '');
     setRichContent(item?.rich_content || '');
     setPostUrl(item?.post_url || '');
@@ -94,8 +101,9 @@ export function EventsSection() {
       let coverUrl = existingCover;
       if (coverFile) coverUrl = await uploadFileToSupabase(coverFile, 'club-media');
 
-      const payload = { 
+      const payload: any = { 
         title, 
+        season_id: seasonId || null,
         description, 
         rich_content: richContent, 
         post_url: postUrl,
@@ -134,7 +142,10 @@ export function EventsSection() {
           <div className="item-card" key={item.id}>
             <div className="item-info">
               <div className="item-title">{item.title}</div>
-              <div className="item-subtitle">{item.description?.substring(0, 80) || 'No description'}... (Order: {item.display_order})</div>
+              <div className="item-subtitle">
+                {item.seasons?.name ? `Season: ${item.seasons.name} | ` : ''}
+                {item.description?.substring(0, 80) || 'No description'}... (Order: {item.display_order})
+              </div>
             </div>
             <div className="actions">
               <button className="btn-edit-icon" onClick={() => openModal(item)}><i className="fas fa-edit"></i></button>
@@ -145,6 +156,13 @@ export function EventsSection() {
       </div>
       <AdminModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={currentItem ? 'Edit Event' : 'Add New Event'} onSubmit={handleSubmit} isSaving={isSaving}>
         <div className="form-group"><label>Event Title:</label><input type="text" value={title} onChange={e => setTitle(e.target.value)} required /></div>
+        <div className="form-group">
+          <label>Season:</label>
+          <select value={seasonId} onChange={e => setSeasonId(e.target.value)}>
+            <option value="">-- No Season --</option>
+            {seasons.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+          </select>
+        </div>
         <div className="form-group"><label>Short Description:</label><textarea rows={3} value={description} onChange={e => setDescription(e.target.value)}></textarea></div>
         <div className="form-group"><label>Rich Content (HTML/Markdown):</label><textarea rows={6} value={richContent} onChange={e => setRichContent(e.target.value)} placeholder="Full event details..."></textarea></div>
         <div className="form-group"><label>Original Post Link (URL):</label><input type="url" value={postUrl} onChange={e => setPostUrl(e.target.value)} placeholder="e.g. https://www.linkedin.com/posts/..." /></div>

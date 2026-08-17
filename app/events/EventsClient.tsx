@@ -4,9 +4,14 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-export default function EventsClient({ events }: any) {
+export default function EventsClient({ seasons = [], events = [] }: any) {
   const [likedEvents, setLikedEvents] = useState<Record<string, boolean>>({});
   const [localLikes, setLocalLikes] = useState<Record<string, number>>({});
+  
+  // Default to the first season if available
+  const [activeSeasonId, setActiveSeasonId] = useState<string>(
+    seasons.length > 0 ? seasons[0].id : ''
+  );
 
   const handleLike = (eventId: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -19,13 +24,40 @@ export default function EventsClient({ events }: any) {
     }));
   };
 
+  const activeEvents = seasons.length > 0
+    ? events.filter((e: any) => e.season_id === activeSeasonId)
+    : events;
+
   return (
     <section className="events-section" style={{ padding: '80px 20px', minHeight: 'calc(100vh - 100px)' }}>
       <div className="container">
-        <h2 style={{ color: 'var(--primary-color)', textAlign: 'center', marginBottom: '4rem', fontSize: '2.5rem', fontWeight: 800 }}>Events & Articles</h2>
-        {events && events.length > 0 ? (
+        <h2 style={{ color: 'var(--primary-color)', textAlign: 'center', marginBottom: '2.5rem', fontSize: '2.5rem', fontWeight: 800 }}>Events & Articles</h2>
+
+        {/* Seasons Category / Filter Tabs */}
+        {seasons && seasons.length > 0 && (
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '3.5rem', flexWrap: 'wrap' }}>
+            {seasons.map((season: any) => (
+              <button
+                key={season.id}
+                onClick={() => setActiveSeasonId(season.id)}
+                className="btn-primary"
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  background: activeSeasonId === season.id 
+                    ? 'linear-gradient(135deg, var(--secondary-color), var(--accent-color))'
+                    : 'var(--card-bg)',
+                  color: 'var(--text-color)'
+                }}
+              >
+                {season.name}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {activeEvents && activeEvents.length > 0 ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '5rem' }}>
-            {events.map((event: any) => {
+            {activeEvents.map((event: any) => {
               const isLiked = !!likedEvents[event.id];
               const likesCount = localLikes[event.id] ?? 42;
 
@@ -129,7 +161,7 @@ export default function EventsClient({ events }: any) {
             })}
           </div>
         ) : (
-          <p style={{ textAlign: 'center' }}>No events found.</p>
+          <p style={{ textAlign: 'center' }}>No events found for this season.</p>
         )}
       </div>
     </section>

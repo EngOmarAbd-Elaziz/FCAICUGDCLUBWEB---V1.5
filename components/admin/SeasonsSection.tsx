@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useAdminContext } from './AdminContext';
 import { AdminModal } from './AdminModal';
@@ -18,14 +19,14 @@ export function SeasonsSection() {
   const supabase = createClient();
   const { showToast, showConfirmModal } = useAdminContext();
 
-  const fetchItems = async () => {
+  const fetchItems = useCallback(async () => {
     setIsLoading(true);
     const { data } = await supabase.from('seasons').select('*').order('display_order', { ascending: true });
     if (data) setItems(data);
     setIsLoading(false);
-  };
+  }, [supabase]);
 
-  useEffect(() => { fetchItems(); }, []);
+  useEffect(() => { fetchItems(); }, [fetchItems]);
 
   const openModal = (item: any = null) => {
     setCurrentItem(item);
@@ -74,7 +75,7 @@ export function SeasonsSection() {
   return (
     <div className="admin-section">
       <div className="admin-section-header">
-        <h2>Team Seasons</h2>
+        <h2>Seasons</h2>
         <button className="btn-primary" onClick={() => openModal()}><i className="fas fa-plus"></i> Add Season</button>
       </div>
       <div>

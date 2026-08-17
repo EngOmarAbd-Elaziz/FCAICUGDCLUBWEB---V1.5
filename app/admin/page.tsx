@@ -98,7 +98,7 @@ export default function AdminPage() {
     ]},
     { group: 'People', items: [
       { key: 'founders', icon: 'fas fa-user-tie', label: 'Founders' },
-      { key: 'team-seasons', icon: 'fas fa-calendar-alt', label: 'Team Seasons' },
+      { key: 'team-seasons', icon: 'fas fa-calendar-alt', label: 'Seasons' },
       { key: 'team', icon: 'fas fa-users', label: 'Core Team' },
     ]},
     { group: 'Activities', items: [

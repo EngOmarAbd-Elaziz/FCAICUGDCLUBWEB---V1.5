@@ -16,7 +16,10 @@ export default function GamingBackground() {
     let height = canvas.height = window.innerHeight;
 
     let particles: Particle[] = [];
-    const numParticles = Math.min(60, Math.floor((width * height) / 20000));
+    const isMobile = window.innerWidth <= 768;
+    const numParticles = isMobile 
+      ? Math.min(25, Math.floor((width * height) / 40000)) 
+      : Math.min(60, Math.floor((width * height) / 20000));
     
     let autoMouse = true;
     let time = 0;
@@ -29,6 +32,8 @@ export default function GamingBackground() {
     };
     
     const handleTouchMove = (e: TouchEvent) => {
+      // Disabled on mobile for performance and standard scrolling experience
+      if (window.innerWidth <= 768) return;
       autoMouse = false;
       if (e.touches.length > 0) {
         mouse.x = e.touches[0].clientX;

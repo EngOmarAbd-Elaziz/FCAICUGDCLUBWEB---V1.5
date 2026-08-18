@@ -216,28 +216,43 @@ section {
 
 /* Progressive desktop links collapsing based on available width */
 @media (max-width: 1280px) {
-    .nav-item-contact { display: none !important; }
-    .hamburger { display: inline-flex !important; }
+    .nav-item-contact {
+        display: none !important;
+    }
+
+    .hamburger {
+        display: inline-flex !important;
+    }
 }
 
 @media (max-width: 1120px) {
-    .nav-item-waves { display: none !important; }
+    .nav-item-waves {
+        display: none !important;
+    }
 }
 
 @media (max-width: 990px) {
-    .nav-item-events { display: none !important; }
+    .nav-item-events {
+        display: none !important;
+    }
 }
 
 @media (max-width: 860px) {
-    .nav-item-courses { display: none !important; }
+    .nav-item-courses {
+        display: none !important;
+    }
 }
 
 @media (max-width: 740px) {
-    .nav-item-team { display: none !important; }
+    .nav-item-team {
+        display: none !important;
+    }
 }
 
 @media (max-width: 620px) {
-    .desktop-nav-links { display: none !important; }
+    .desktop-nav-links {
+        display: none !important;
+    }
 }
 
 /* Mobile & Tablet Floating Glass Menu Panel */
@@ -518,6 +533,7 @@ section h2 {
     .team-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .team-card .overlay {
         opacity: 1;
         transform: translateY(0);
@@ -526,6 +542,7 @@ section h2 {
 }
 
 @media (max-width: 480px) {
+
     /* Minimum 2 cards per row — never a single oversized card */
     .team-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -2154,6 +2171,7 @@ section h2 {
     .impact-cta-container {
         flex-direction: column;
     }
+
     .impact-cta-container .btn-primary {
         width: 100%;
     }
@@ -3081,16 +3099,37 @@ body.no-scroll {
    LINKTREE SOCIAL HUB BANNER
 ======================== */
 @keyframes linktree-shimmer {
-    0%   { transform: translateX(-100%) skewX(-20deg); }
-    100% { transform: translateX(250%) skewX(-20deg); }
+    0% {
+        transform: translateX(-100%) skewX(-20deg);
+    }
+
+    100% {
+        transform: translateX(250%) skewX(-20deg);
+    }
 }
+
 @keyframes linktree-arrow-bounce {
-    0%, 100% { transform: translate(0, 0); }
-    50%       { transform: translate(3px, -3px); }
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(3px, -3px);
+    }
 }
+
 @keyframes linktree-glow-pulse {
-    0%, 100% { box-shadow: 0 0 18px rgba(255, 83, 3, 0.25), inset 0 0 30px rgba(255, 83, 3, 0.04); }
-    50%       { box-shadow: 0 0 32px rgba(255, 83, 3, 0.45), inset 0 0 50px rgba(255, 83, 3, 0.08); }
+
+    0%,
+    100% {
+        box-shadow: 0 0 18px rgba(255, 83, 3, 0.25), inset 0 0 30px rgba(255, 83, 3, 0.04);
+    }
+
+    50% {
+        box-shadow: 0 0 32px rgba(255, 83, 3, 0.45), inset 0 0 50px rgba(255, 83, 3, 0.08);
+    }
 }
 
 .linktree-banner {
@@ -3153,12 +3192,10 @@ body.no-scroll {
     left: 0;
     width: 40%;
     height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(255, 83, 3, 0.08) 50%,
-        transparent 100%
-    );
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 83, 3, 0.08) 50%,
+            transparent 100%);
     animation: linktree-shimmer 3.5s ease-in-out infinite;
     pointer-events: none;
 }
@@ -3168,17 +3205,24 @@ body.no-scroll {
    Desktop is completely unaffected.
 ======================== */
 @media (hover: none) {
+
     /* Navbar */
     .desktop-nav-item:hover,
     .desktop-nav-item.admin-link:hover,
     .desktop-nav-item.logout-btn:hover,
     .hamburger:hover,
     .mobile-nav-link:hover,
-    .admin-menu a:hover { all: revert; }
+    .admin-menu a:hover {
+        all: revert;
+    }
 
     /* Buttons */
     .btn-primary:hover,
-    .btn-secondary:hover { transform: none; box-shadow: none; filter: none; }
+    .btn-secondary:hover {
+        transform: none;
+        box-shadow: none;
+        filter: none;
+    }
 
     /* Cards */
     .team-card:hover,
@@ -3200,7 +3244,11 @@ body.no-scroll {
     .member-card-hover:hover,
     .big-link-card:hover,
     .big-link-card.whatsapp:hover,
-    .big-link-card.classroom:hover { transform: none; box-shadow: none; filter: none; }
+    .big-link-card.classroom:hover {
+        transform: none;
+        box-shadow: none;
+        filter: none;
+    }
 
     /* Social / links */
     .contact-social-btn:hover,
@@ -3209,48 +3257,78 @@ body.no-scroll {
     .profile-links a:hover,
     .home-social-links:hover,
     .footer-signature a:hover,
-    .profile-info-row:hover { transform: none; box-shadow: none; opacity: 1; color: inherit; }
+    .profile-info-row:hover {
+        transform: none;
+        box-shadow: none;
+        opacity: 1;
+        color: inherit;
+    }
 
     /* Post / social cards */
     .social-post-card:hover,
     .social-post-card:hover .social-post-image,
     .social-post-dots:hover,
-    .social-action-btn:hover { transform: none; box-shadow: none; }
+    .social-action-btn:hover {
+        transform: none;
+        box-shadow: none;
+    }
 
     /* Event partner */
-    .event-partner-logo:hover { transform: none; box-shadow: none; }
+    .event-partner-logo:hover {
+        transform: none;
+        box-shadow: none;
+    }
 
     /* YouTube */
     .youtube-slider:hover .youtube-track,
-    .youtube-slider img:hover { animation-play-state: running; transform: none; }
+    .youtube-slider img:hover {
+        animation-play-state: running;
+        transform: none;
+    }
 
     /* Mission / Vision */
     .mission:hover,
-    .vision:hover { transform: none; box-shadow: none; }
+    .vision:hover {
+        transform: none;
+        box-shadow: none;
+    }
 
     /* Wave tab */
-    .wave-tab:hover { transform: none; }
+    .wave-tab:hover {
+        transform: none;
+    }
 
     /* Linktree banner */
-    .linktree-banner:hover { transform: none; border-color: rgba(255, 83, 3, 0.25); }
+    .linktree-banner:hover {
+        transform: none;
+        border-color: rgba(255, 83, 3, 0.25);
+    }
 
     /* Profile / admin items */
-    .profile-list-item:hover { background: none; }
+    .profile-list-item:hover {
+        background: none;
+    }
 
     /* Stars */
     .stars.interactive i:hover,
-    .stars.interactive i:hover ~ i,
+    .stars.interactive i:hover~i,
     .stars.interactive:hover i,
     .stars.interactive:hover i:hover,
-    .stars.interactive:hover i:hover ~ i { transform: none; }
+    .stars.interactive:hover i:hover~i {
+        transform: none;
+    }
 
     /* Close buttons */
     .close:hover,
     .close-viewer:hover,
-    .close-lightbox:hover { transform: none; }
+    .close-lightbox:hover {
+        transform: none;
+    }
 
     /* Submit btn */
-    .submit-btn:hover i { transform: none; }
+    .submit-btn:hover i {
+        transform: none;
+    }
 }
 
 /* ========================
@@ -3261,6 +3339,7 @@ body.no-scroll {
         /* The glow effect is driven by the canvas — on mobile we rely on the
            component's own isMobile guard. This rule adds an extra CSS-level
            safety net so the canvas never renders the glow overlay on touch. */
-        opacity: 0.6; /* keep particle field but reduce prominence */
+        opacity: 1;
+        /* Restored to 1 to prevent grey tint from browser background */
     }
 }

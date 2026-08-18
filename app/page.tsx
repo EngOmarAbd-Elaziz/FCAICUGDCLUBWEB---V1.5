@@ -49,7 +49,7 @@ export default async function HomePage() {
 
       {/* Linktree / Social Hub Banner */}
       <a
-        href="https://linktr.ee/fcaicugdclub"
+        href="https://linktr.ee/fcai_gd"
         target="_blank"
         rel="noreferrer"
         style={{ textDecoration: 'none', display: 'block' }}

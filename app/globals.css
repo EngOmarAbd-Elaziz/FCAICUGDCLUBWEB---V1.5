@@ -3076,3 +3076,191 @@ body.no-scroll {
         font-size: 1.4rem;
     }
 }
+
+/* ========================
+   LINKTREE SOCIAL HUB BANNER
+======================== */
+@keyframes linktree-shimmer {
+    0%   { transform: translateX(-100%) skewX(-20deg); }
+    100% { transform: translateX(250%) skewX(-20deg); }
+}
+@keyframes linktree-arrow-bounce {
+    0%, 100% { transform: translate(0, 0); }
+    50%       { transform: translate(3px, -3px); }
+}
+@keyframes linktree-glow-pulse {
+    0%, 100% { box-shadow: 0 0 18px rgba(255, 83, 3, 0.25), inset 0 0 30px rgba(255, 83, 3, 0.04); }
+    50%       { box-shadow: 0 0 32px rgba(255, 83, 3, 0.45), inset 0 0 50px rgba(255, 83, 3, 0.08); }
+}
+
+.linktree-banner {
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    max-width: 1200px;
+    width: calc(100% - 40px);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem 2rem;
+    background: rgba(20, 20, 20, 0.65);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 83, 3, 0.25);
+    border-radius: 14px;
+    cursor: pointer;
+    animation: linktree-glow-pulse 3s ease-in-out infinite;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.linktree-banner:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 83, 3, 0.55);
+}
+
+.linktree-banner-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    position: relative;
+    z-index: 1;
+}
+
+.linktree-banner-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.linktree-banner-text {
+    font-size: clamp(0.85rem, 2.5vw, 1.05rem);
+    font-weight: 600;
+    color: var(--text-color);
+    letter-spacing: 0.02em;
+    text-align: center;
+}
+
+.linktree-banner-arrow {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    flex-shrink: 0;
+    animation: linktree-arrow-bounce 1.8s ease-in-out infinite;
+    display: inline-block;
+}
+
+.linktree-banner-shimmer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 83, 3, 0.08) 50%,
+        transparent 100%
+    );
+    animation: linktree-shimmer 3.5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* ========================
+   MOBILE: DISABLE HOVER EFFECTS ON TOUCH SCREENS
+   Desktop is completely unaffected.
+======================== */
+@media (hover: none) {
+    /* Navbar */
+    .desktop-nav-item:hover,
+    .desktop-nav-item.admin-link:hover,
+    .desktop-nav-item.logout-btn:hover,
+    .hamburger:hover,
+    .mobile-nav-link:hover,
+    .admin-menu a:hover { all: revert; }
+
+    /* Buttons */
+    .btn-primary:hover,
+    .btn-secondary:hover { transform: none; box-shadow: none; filter: none; }
+
+    /* Cards */
+    .team-card:hover,
+    .team-card:hover .overlay,
+    .event-card-premium:hover,
+    .contact-card:hover,
+    .contact-card:hover .icon-wrapper,
+    .contact-card a:hover,
+    .item-card:hover,
+    .profile-item:hover,
+    .profile-item .btn-primary:hover,
+    .partner-card:hover,
+    .game-card:hover,
+    .game-card:hover .game-image img,
+    .gallery-item:hover,
+    .gallery-card:hover,
+    .gallery-card:hover .gallery-media img,
+    .gallery-card:hover .play-overlay,
+    .member-card-hover:hover,
+    .big-link-card:hover,
+    .big-link-card.whatsapp:hover,
+    .big-link-card.classroom:hover { transform: none; box-shadow: none; filter: none; }
+
+    /* Social / links */
+    .contact-social-btn:hover,
+    .contact-social-btn:hover i,
+    .social-link:hover,
+    .profile-links a:hover,
+    .home-social-links:hover,
+    .footer-signature a:hover,
+    .profile-info-row:hover { transform: none; box-shadow: none; opacity: 1; color: inherit; }
+
+    /* Post / social cards */
+    .social-post-card:hover,
+    .social-post-card:hover .social-post-image,
+    .social-post-dots:hover,
+    .social-action-btn:hover { transform: none; box-shadow: none; }
+
+    /* Event partner */
+    .event-partner-logo:hover { transform: none; box-shadow: none; }
+
+    /* YouTube */
+    .youtube-slider:hover .youtube-track,
+    .youtube-slider img:hover { animation-play-state: running; transform: none; }
+
+    /* Mission / Vision */
+    .mission:hover,
+    .vision:hover { transform: none; box-shadow: none; }
+
+    /* Wave tab */
+    .wave-tab:hover { transform: none; }
+
+    /* Linktree banner */
+    .linktree-banner:hover { transform: none; border-color: rgba(255, 83, 3, 0.25); }
+
+    /* Profile / admin items */
+    .profile-list-item:hover { background: none; }
+
+    /* Stars */
+    .stars.interactive i:hover,
+    .stars.interactive i:hover ~ i,
+    .stars.interactive:hover i,
+    .stars.interactive:hover i:hover,
+    .stars.interactive:hover i:hover ~ i { transform: none; }
+
+    /* Close buttons */
+    .close:hover,
+    .close-viewer:hover,
+    .close-lightbox:hover { transform: none; }
+
+    /* Submit btn */
+    .submit-btn:hover i { transform: none; }
+}
+
+/* ========================
+   MOBILE: HIDE MOUSE GLOW / CUSTOM CURSOR FOLLOWER
+======================== */
+@media (max-width: 768px) {
+    canvas#gaming-bg {
+        /* The glow effect is driven by the canvas — on mobile we rely on the
+           component's own isMobile guard. This rule adds an extra CSS-level
+           safety net so the canvas never renders the glow overlay on touch. */
+        opacity: 0.6; /* keep particle field but reduce prominence */
+    }
+}

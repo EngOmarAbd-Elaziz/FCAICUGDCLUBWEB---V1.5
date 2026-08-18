@@ -47,6 +47,26 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Linktree / Social Hub Banner */}
+      <a
+        href="https://linktr.ee/fcaicugdclub"
+        target="_blank"
+        rel="noreferrer"
+        style={{ textDecoration: 'none', display: 'block' }}
+        aria-label="Find all our social media links on Linktree"
+      >
+        <div className="linktree-banner">
+          <div className="linktree-banner-inner">
+            <span className="linktree-banner-icon">🌐</span>
+            <span className="linktree-banner-text">
+              Connect, Follow &amp; Explore — Find All Our Social Media Links Here
+            </span>
+            <span className="linktree-banner-arrow">↗</span>
+          </div>
+          <div className="linktree-banner-shimmer" />
+        </div>
+      </a>
+
       {/* Mission & Vision */}
       <section className="mission-vision" id="about">
         <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: '5rem', paddingTop: '5rem', paddingBottom: '2rem' }}>

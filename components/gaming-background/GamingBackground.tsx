@@ -151,8 +151,8 @@ export default function GamingBackground() {
       
       connectParticles();
       
-      // Draw mouse glow
-      if (mouse.x > 0 && mouse.y > 0) {
+      // Draw mouse glow — desktop only
+      if (!isMobile && mouse.x > 0 && mouse.y > 0) {
         const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 150);
         gradient.addColorStop(0, 'rgba(255, 83, 3, 0.08)');
         gradient.addColorStop(1, 'rgba(255, 83, 3, 0)');
@@ -176,6 +176,7 @@ export default function GamingBackground() {
 
   return (
     <canvas
+      id="gaming-bg"
       ref={canvasRef}
       style={{
         position: 'fixed',

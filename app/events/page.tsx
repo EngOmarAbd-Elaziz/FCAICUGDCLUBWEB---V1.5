@@ -5,10 +5,12 @@ export default async function EventsPage() {
   const supabase = await createClient();
 
   // Fetch Seasons, Events & Gallery
-  const { data: seasons } = await supabase
+  const { data: seasonsData } = await supabase
     .from('seasons')
     .select('*')
     .order('display_order', { ascending: true });
+  
+  const seasons = seasonsData ? [...seasonsData].sort((a, b) => b.name.localeCompare(a.name)) : [];
 
   const { data: eventsData } = await supabase
     .from('events')

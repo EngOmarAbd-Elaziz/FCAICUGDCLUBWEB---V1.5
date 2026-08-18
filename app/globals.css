@@ -647,6 +647,8 @@ section h2 {
     overflow: hidden;
     padding: 0.75rem 0;
     min-height: 180px;
+    /* Prevent the section's container from constraining the track width */
+    width: 100%;
 }
 
 .youtube-track {
@@ -654,8 +656,16 @@ section h2 {
     align-items: center;
     gap: 1.25rem;
     padding-bottom: 10px;
-    animation: marquee 5s linear infinite;
+    /* max-content lets translateX(-50%) map to exactly one full set of items */
+    width: max-content;
+    animation: marquee 30s linear infinite;
     will-change: transform;
+}
+
+.youtube-thumb-link {
+    flex-shrink: 0;
+    display: block;
+    line-height: 0;
 }
 
 .youtube-slider:hover .youtube-track {
@@ -665,7 +675,7 @@ section h2 {
 .youtube-slider img {
     width: 320px;
     max-width: 85vw;
-    min-width: auto;
+    flex-shrink: 0;
     height: 190px;
     object-fit: cover;
     border-radius: 14px;
